@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Speech Sample</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap Core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+
+    <!-- Theme CSS -->
+    <link href="css/grayscale.min.css" rel="stylesheet">
+
+    <link href="css/custom.css" rel="stylesheet" type="text/css">
+    
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+    <!-- Intro Header -->
+    <header class="intro">
+        <div class="intro-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <h1 class="brand-heading">Speech Recognition</h1>
+                        <p class="intro-text">Microsoft Cognitive Services
+                            </p>
+                        <a href="#about" class="btn btn-circle page-scroll">
+                            <i class="fa fa-angle-double-down animated"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="container content-section text-center">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h2>Test Sample</h2>
+                <div class="table">
+                    <div class="row">
+                        <div class="cell">
+                           <a href="https://www.microsoft.com/cognitive-services/en-us/sign-up" target="_blank" >Subscription</a>:
+                        </div>
+                        <div class="cell">
+                            <input id="key" type="text" size="40" value="4dba8bd604864366887dbfdb4fded8f0" style="color:black">
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="cell">
+                                Laguage:
+                        </div>
+                        <div class="cell">
+                            <select id="languageOptions" style="color:black">
+                                <option value="zh-CN">Chinese - CN</option>
+                                <option value="en-GB">English - GB</option>
+                                <option value="en-US" selected="selected">English - US</option>
+                                <option value="fr-FR">French - FR</option>
+                                <option value="de-DE">German - DE</option>
+                                <option value="it-IT">Italian - IT</option>
+                                <option value="es-ES">Spanish - ES</option>
+                            </select>
+                        </div>
+                    </div>
+                
+
+                <div class="row">
+                    <div class="cell">
+                        Format:
+                    </div>
+                    <div class="cell">
+                        <select id="formatOptions" style="color:black">
+                            <option value="Simple" selected="selected">Simple Result</option>
+                            <option value="Detailed">Detailed Result</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="cell"></div>
+                    <div class="cell">
+                        
+                        <button id="startBtn" disabled="disabled" class="btn btn-default btn-lg" >Start</button>
+                        <button id="stopBtn" disabled="disabled" class="btn btn-default btn-lg">Stop</button>
+                        
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="cell">
+                        
+                    </div>
+                    <div class="cell">
+                        Current hypothesis: <span id="hypothesisDiv"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="cell">
+                       
+                    </div>
+                    <div class="cell">
+                        <textarea id="phraseDiv" style="width:500px;height:200px; color: black" ></textarea>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="cell">
+                       
+                    </div>
+                    <div class="cell">
+                        Status: <span id="statusDiv"></span>
+                    </div>
+                </div>
+            </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container text-center">
+            <p>Copyright &copy; Your Website 2016</p>
+        </div>
+    </footer>
+
+   
+
+    <!-- jQuery -->
+    <script src="vendor/jquery/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+
+    <!-- Google Maps API Key - Use your own API key to enable the map feature. More information on the Google Maps API can be found at https://developers.google.com/maps/ -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false"></script>
+
+    <!-- Theme JavaScript -->
+    <script src="js/grayscale.min.js"></script>
+
+    <!-- The SDK has a dependency on requirejs (http://requirejs.org/). -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.3.3/require.min.js"></script>
+    <script>
+        // Special handling to let the sample work when loaded directly from file system.
+        if (window.location.protocol == "file:") {
+            document.write('\<script src="http://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.3/require.min.js">\<\/script>');
+        }
+    </script>
+
+    <!-- SDK REFERENCE -->
+    <script src="distrib\speech.browser.sdk-min.js"></script>
+
+    <!-- SDK USAGE -->
+    <script>
+        // On doument load resolve the SDK dependecy
+        function Initialize(onComplete) {
+            require(["Speech.Browser.Sdk"], function(SDK) {
+                onComplete(SDK);
+            });
+        }
+        
+        // Setup the recongizer
+        function RecognizerSetup(SDK, recognitionMode, language, format, subscriptionKey) {
+            var recognizerConfig = new SDK.RecognizerConfig(
+                new SDK.SpeechConfig(
+                    new SDK.Context(
+                        new SDK.OS(navigator.userAgent, "Browser", null),
+                        new SDK.Device("SpeechSample", "SpeechSample", "1.0.00000"))),
+                recognitionMode, // SDK.RecognitionMode.Interactive  (Options - Interactive/Conversation/Dictation>)
+                language, // Supported laguages are specific to each recognition mode. Refer to docs.
+                format); // SDK.SpeechResultFormat.Simple (Options - Simple/Detailed)
+
+            // Alternatively use SDK.CognitiveTokenAuthentication(fetchCallback, fetchOnExpiryCallback) for token auth
+            var authentication = new SDK.CognitiveSubscriptionKeyAuthentication(subscriptionKey);
+
+            return SDK.CreateRecognizer(recognizerConfig, authentication);
+        }
+
+        // Start the recognition
+        function RecognizerStart(SDK, recognizer) {
+            recognizer.Recognize((event) => {
+                /*
+                 Alternative syntax for typescript devs.
+                 if (event instanceof SDK.RecognitionTriggeredEvent)
+                */
+                switch (event.Name) {
+                    case "RecognitionTriggeredEvent" :
+                        UpdateStatus("Initializing");
+                        break;
+                    case "ListeningStartedEvent" :
+                        UpdateStatus("Listening");
+                        break;
+                    case "RecognitionStartedEvent" :
+                        UpdateStatus("Listening_Recognizing");
+                        break;
+                    case "SpeechStartDetectedEvent" :
+                        UpdateStatus("Listening_DetectedSpeech_Recognizing");
+                        console.log(JSON.stringify(event.Result)); // check console for other information in result
+                        break;
+                    case "SpeechHypothesisEvent" :
+                        UpdateRecognizedHypothesis(event.Result.Text);
+                        console.log(JSON.stringify(event.Result)); // check console for other information in result
+                        break;
+                    case "SpeechEndDetectedEvent" :
+                        OnSpeechEndDetected();
+                        UpdateStatus("Processing_Adding_Final_Touches");
+                        console.log(JSON.stringify(event.Result)); // check console for other information in result
+                        break;
+                    case "SpeechSimplePhraseEvent" :
+                        UpdateRecognizedPhrase(JSON.stringify(event.Result, null, 3));
+                        break;
+                    case "SpeechDetailedPhraseEvent" :
+                        UpdateRecognizedPhrase(JSON.stringify(event.Result, null, 3));
+                        break;
+                    case "RecognitionEndedEvent" :
+                        OnComplete();
+                        UpdateStatus("Idle");
+                        console.log(JSON.stringify(event)); // Debug information
+                        break;
+                }
+            })
+            .On(() => {
+                // The request succeeded. Nothing to do here.
+            },
+            (error) => {
+                console.error(error);
+            });
+        }
+
+        // Stop the Recognition.
+        function RecognizerStop(SDK, recognizer) {
+            // recognizer.AudioSource.Detach(audioNodeId) can be also used here. (audioNodeId is part of ListeningStartedEvent)
+            recognizer.AudioSource.TurnOff();
+        }
+    </script>
+
+    <!-- Browser Hooks -->
+    <script>
+        var startBtn, stopBtn, hypothesisDiv, phraseDiv, statusDiv, key, languageOptions, formatOptions;
+        var SDK;
+        var recognizer;
+        var previousSubscriptionKey;
+
+        document.addEventListener("DOMContentLoaded", function () {
+            createBtn = document.getElementById("createBtn");
+            startBtn = document.getElementById("startBtn");
+            stopBtn = document.getElementById("stopBtn");
+            phraseDiv = document.getElementById("phraseDiv");
+            hypothesisDiv = document.getElementById("hypothesisDiv");
+            statusDiv = document.getElementById("statusDiv");
+            key = document.getElementById("key");
+            languageOptions = document.getElementById("languageOptions");
+            formatOptions = document.getElementById("formatOptions");
+
+            languageOptions.addEventListener("change", function () {
+                Setup();
+            });
+            
+            formatOptions.addEventListener("change", function () {
+                Setup();
+            });
+
+            startBtn.addEventListener("click", function () {
+                if (!recognizer || previousSubscriptionKey != key.value) {
+                    previousSubscriptionKey = key.value;
+                    Setup();
+                }
+
+                hypothesisDiv.innerHTML = "";
+                phraseDiv.innerHTML = "";
+                RecognizerStart(SDK, recognizer);
+                startBtn.disabled = true;
+                stopBtn.disabled = false;
+            });
+
+            stopBtn.addEventListener("click", function () {
+                RecognizerStop(SDK);
+                startBtn.disabled = false;
+                stopBtn.disabled = true;
+            });
+
+            Initialize(function (speechSdk) {
+                SDK = speechSdk;
+                startBtn.disabled = false;
+            });
+        });
+
+        function Setup() {
+            recognizer = RecognizerSetup(SDK, SDK.RecognitionMode.Interactive, languageOptions.value, SDK.SpeechResultFormat[formatOptions.value], key.value);
+        }
+
+        function UpdateStatus(status) {
+            statusDiv.innerHTML = status;
+        }
+
+        function UpdateRecognizedHypothesis(text) {
+            hypothesisDiv.innerHTML = text;
+        }
+
+        function OnSpeechEndDetected() {
+            stopBtn.disabled = true;
+        }
+
+        function UpdateRecognizedPhrase(json) {
+             phraseDiv.innerHTML = json;
+        }
+
+        function OnComplete() {
+            startBtn.disabled = false;
+            stopBtn.disabled = true;
+        }
+    </script>
+</body>
+</html>
